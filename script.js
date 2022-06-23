@@ -77,3 +77,24 @@ class Modal {
     this.#backBtn.disabled = !enabled;
   }
 }
+class Intro {
+  #modal
+  #highlightContainer
+  #bodyClick
+
+  constructor(steps) {
+    this.steps = steps
+    this.#bodyClick = e => {
+      if (
+        e.target === this.#currentStep.element ||
+        this.#currentStep.element?.contains(e.target) ||
+        e.target.closest(".highlight-container") != null ||
+        e.target.matches(".modal") ||
+        e.target.closest(".modal") != null
+      ) {
+        return
+      }
+
+      this.finish()
+    }
+  }
