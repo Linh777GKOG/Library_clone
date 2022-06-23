@@ -78,77 +78,92 @@ class Modal {
   }
 }
 class Intro {
-  #modal
-  #highlightContainer
-  #bodyClick
+  #modal;
+  #highlightContainer;
+  #bodyClick;
 
   constructor(steps) {
-    this.steps = steps
-    this.#bodyClick = e => {
+    this.steps = steps;
+    this.#bodyClick = (e) => {
       if (
         e.target === this.#currentStep.element ||
         this.#currentStep.element?.contains(e.target) ||
-        e.target.closest(".highlight-container") != null ||
-        e.target.matches(".modal") ||
-        e.target.closest(".modal") != null
+        e.target.closest('.highlight-container') != null ||
+        e.target.matches('.modal') ||
+        e.target.closest('.modal') != null
       ) {
-        return
+        return;
       }
 
-      this.finish()
-    }
+      this.finish();
+    };
   }
 
-   start() {
-    this.currentStepIndex = 0
+  start() {
+    this.currentStepIndex = 0;
     this.#modal = new Modal(
       () => {
-        this.currentStepIndex--
-        this.#showCurrentStep()
+        this.currentStepIndex--;
+        this.#showCurrentStep();
       },
       () => {
-        this.currentStepIndex++
+        this.currentStepIndex++;
         if (this.currentStepIndex >= this.steps.length) {
-          this.finish()
+          this.finish();
         } else {
-          this.#showCurrentStep()
+          this.#showCurrentStep();
         }
       },
       () => this.finish()
-    )
-    document.addEventListener("click", this.#bodyClick)
-    this.#highlightContainer = this.#createHighlightContainer()
-    this.#showCurrentStep()
+    );
+    document.addEventListener('click', this.#bodyClick);
+    this.#highlightContainer = this.#createHighlightContainer();
+    this.#showCurrentStep();
   }
-   finish() {
-    document.removeEventListener("click", this.#bodyClick)
-    this.#modal.remove()
-    this.#highlightContainer.remove()
+  finish() {
+    document.removeEventListener('click', this.#bodyClick);
+    this.#modal.remove();
+    this.#highlightContainer.remove();
   }
 
   get #currentStep() {
-    return this.steps[this.currentStepIndex]
+    return this.steps[this.currentStepIndex];
   }
 
   #showCurrentStep() {
-    this.#modal.show()
-    this.#modal.enableBackButton(this.currentStepIndex !== 0)
-    this.#modal.title = this.#currentStep.title
-    this.#modal.body = this.#currentStep.body
+    this.#modal.show();
+    this.#modal.enableBackButton(this.currentStepIndex !== 0);
+    this.#modal.title = this.#currentStep.title;
+    this.#modal.body = this.#currentStep.body;
     if (this.#currentStep.element == null) {
-      this.#highlightContainer.classList.add("hide")
-      this.#positionHighlightContainer({ x: 0, y: 0, width: 0, height: 0 })
-      this.#modal.center()
+      this.#highlightContainer.classList.add('hide');
+      this.#positionHighlightContainer({ x: 0, y: 0, width: 0, height: 0 });
+      this.#modal.center();
     } else {
-      this.#modal.center(false)
-      const rect = this.#currentStep.element.getBoundingClientRect()
-      this.#modal.position(rect)
-      this.#highlightContainer.classList.remove("hide")
-      this.#positionHighlightContainer(rect)
+      this.#modal.center(false);
+      const rect = this.#currentStep.element.getBoundingClientRect();
+      this.#modal.position(rect);
+      this.#highlightContainer.classList.remove('hide');
+      this.#positionHighlightContainer(rect);
       this.#currentStep.element.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      })
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
     }
   }
+
+  #createHighlightContainer() {
+    const highlightContainer = document.createElement('div');
+    highlightContainer.classList.add('highlight-container');
+    document.body.append(highlightContainer);
+    return highlightContainer;
+  }
+
+  #positionHighlightContainer(rect) {
+    this.#highlightContainer.style.top = `${rect.top + window.scrollY}px`;
+    this.#highlightContainer.style.left = `${rect.left + window.scrollX}px`;
+    this.#highlightContainer.style.width = `${rect.width}px`;
+    this.#highlightContainer.style.height = `${rect.height}px`;
+  }
+}
