@@ -97,3 +97,19 @@
   font-size: 0.9rem;
   padding: 0 var(--padding);
 }
+
+.modal .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #777;
+  transition: 150ms ease-in-out;
+}
+
+.modal .close-btn:hover {
+  color: black;
+}
