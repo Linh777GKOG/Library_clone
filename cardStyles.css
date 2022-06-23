@@ -19,3 +19,20 @@
   border-radius: 0.25rem;
   overflow: hidden;
 }
+
+.card-footer {
+  margin-top: 1rem;
+  padding: var(--padding);
+  padding-top: 0;
+}
+
+.btn {
+  --color: hsl(200, 50%, 50%);
+  background: var(--color);
+  color: white;
+  border: none;
+  font-size: 1rem;
+  padding: 0.5em 0.75em;
+  border-radius: 0.25em;
+  cursor: pointer;
+}
