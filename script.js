@@ -167,3 +167,24 @@ class Intro {
     this.#highlightContainer.style.height = `${rect.height}px`;
   }
 }
+const intro = new Intro([
+  {
+    title: 'Test Title',
+    body: 'This is the body of the modal',
+  },
+  {
+    title: 'Test Title 2',
+    body: 'This is the body of the modal 2',
+    element: document.querySelector('[data-first]'),
+  },
+  {
+    title: 'Test Title 3',
+    body: 'This is the body of the modal 3',
+    element: document.querySelector('[data-second]'),
+  },
+]);
+intro.start();
+
+setTimeout(() => {
+  intro.finish();
+}, 2000);
