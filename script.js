@@ -98,3 +98,25 @@ class Intro {
       this.finish()
     }
   }
+
+   start() {
+    this.currentStepIndex = 0
+    this.#modal = new Modal(
+      () => {
+        this.currentStepIndex--
+        this.#showCurrentStep()
+      },
+      () => {
+        this.currentStepIndex++
+        if (this.currentStepIndex >= this.steps.length) {
+          this.finish()
+        } else {
+          this.#showCurrentStep()
+        }
+      },
+      () => this.finish()
+    )
+    document.addEventListener("click", this.#bodyClick)
+    this.#highlightContainer = this.#createHighlightContainer()
+    this.#showCurrentStep()
+  }
