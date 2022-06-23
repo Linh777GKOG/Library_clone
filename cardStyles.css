@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  align-items: flex-start;
+  margin: 2rem;
+}
+
+.card {
+  --padding: 1rem;
+  background: white;
+  border: 1px solid #777;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
