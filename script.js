@@ -120,3 +120,35 @@ class Intro {
     this.#highlightContainer = this.#createHighlightContainer()
     this.#showCurrentStep()
   }
+   finish() {
+    document.removeEventListener("click", this.#bodyClick)
+    this.#modal.remove()
+    this.#highlightContainer.remove()
+  }
+
+  get #currentStep() {
+    return this.steps[this.currentStepIndex]
+  }
+
+  #showCurrentStep() {
+    this.#modal.show()
+    this.#modal.enableBackButton(this.currentStepIndex !== 0)
+    this.#modal.title = this.#currentStep.title
+    this.#modal.body = this.#currentStep.body
+    if (this.#currentStep.element == null) {
+      this.#highlightContainer.classList.add("hide")
+      this.#positionHighlightContainer({ x: 0, y: 0, width: 0, height: 0 })
+      this.#modal.center()
+    } else {
+      this.#modal.center(false)
+      const rect = this.#currentStep.element.getBoundingClientRect()
+      this.#modal.position(rect)
+      this.#highlightContainer.classList.remove("hide")
+      this.#positionHighlightContainer(rect)
+      this.#currentStep.element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      })
+    }
+  }
