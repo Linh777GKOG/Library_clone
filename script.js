@@ -77,6 +77,7 @@ class Modal {
     this.#backBtn.disabled = !enabled;
   }
 }
+
 class Intro {
   #modal;
   #highlightContainer;
@@ -120,6 +121,7 @@ class Intro {
     this.#highlightContainer = this.#createHighlightContainer();
     this.#showCurrentStep();
   }
+
   finish() {
     document.removeEventListener('click', this.#bodyClick);
     this.#modal.remove();
@@ -167,6 +169,7 @@ class Intro {
     this.#highlightContainer.style.height = `${rect.height}px`;
   }
 }
+
 const intro = new Intro([
   {
     title: 'Test Title',
