@@ -40,3 +40,20 @@ class Modal {
 
     document.body.append(this.#modal)
   }
+
+  
+  set title(value) {
+    this.#title.innerText = value
+  }
+
+  set body(value) {
+    this.#body.innerText = value
+  }
+
+  show(value = true) {
+    this.#modal.classList.toggle("show", value)
+  }
+
+  center(value = true) {
+    this.#modal.classList.toggle("center", value)
+  }
